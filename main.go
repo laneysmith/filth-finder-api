@@ -56,10 +56,14 @@ func custom(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "8080"
+		fmt.Println("No PORT environment variable detected, defaulting to " + port)
+	}
+
 	http.HandleFunc("/custom", custom)
-	// TODO: add simple search option
-	// http.HandleFunc("/simple", simple)
-	http.ListenAndServe(":8000", nil)
+	http.ListenAndServe(":"+port, nil)
 }
 
 func getCredentials(w http.ResponseWriter) (options *yelp.AuthOptions, err error) {
