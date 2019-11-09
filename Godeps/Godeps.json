@@ -1,0 +1,16 @@
+{
+	"ImportPath": "filth-finder-api",
+	"GoVersion": "go1.11",
+	"GodepVersion": "v80",
+	"Deps": [
+		{
+			"ImportPath": "github.com/guregu/null",
+			"Comment": "v3.4.0",
+			"Rev": "80515d440932108546bcade467bb7d6968e812e2"
+		},
+		{
+			"ImportPath": "go-yelp-v3/yelp",
+			"Rev": "5f67ce9baf073482633720425d1ad012f4c92f32"
+		}
+	]
+}
