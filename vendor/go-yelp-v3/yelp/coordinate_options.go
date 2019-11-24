@@ -11,11 +11,8 @@ import (
 // The geographic coordinate format is defined as:
 // ll=latitude,longitude,accuracy,altitude,altitude_accuracy
 type CoordinateOptions struct {
-	Latitude         null.Float // Latitude of geo-point to search near (required)
-	Longitude        null.Float // Longitude of geo-point to search near (required)
-	Accuracy         null.Float // Accuracy of latitude, longitude (optional)
-	Altitude         null.Float // Altitude (optional)
-	AltitudeAccuracy null.Float // Accuracy of altitude (optional)
+	Latitude  null.Float // Latitude of geo-point to search near (required)
+	Longitude null.Float // Longitude of geo-point to search near (required)
 }
 
 // getParameters will reflect over the values of the given
@@ -27,18 +24,9 @@ func (o CoordinateOptions) getParameters() (params map[string]string, err error)
 		return nil, errors.New("latitude and longitude are required fields for a coordinate based search")
 	}
 
-	ll := fmt.Sprintf("%v,%v", o.Latitude.Float64, o.Longitude.Float64)
-	if o.Accuracy.Valid {
-		ll += fmt.Sprintf(",%v", o.Accuracy.Float64)
-	}
-	if o.Altitude.Valid {
-		ll += fmt.Sprintf(",%v", o.Altitude.Float64)
-	}
-	if o.AltitudeAccuracy.Valid {
-		ll += fmt.Sprintf(",%v", o.AltitudeAccuracy.Float64)
-	}
+	params = make(map[string]string)
+	params["latitude"] = fmt.Sprintf("%v", o.Latitude.Float64)
+	params["longitude"] = fmt.Sprintf("%v", o.Longitude.Float64)
 
-	return map[string]string{
-		"ll": ll,
-	}, nil
+	return params, nil
 }

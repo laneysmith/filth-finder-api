@@ -13,13 +13,12 @@ type OptionProvider interface {
 
 // SearchOptions are the top level search parameters used for performing searches.
 // You can define multiple sets of options, and use them together. One (and only one) of
-// LocationOptions, CoordinateOptions, or BoundOptions can be used at the same time.
+// LocationOptions, or CoordinateOptions can be used at the same time.
 type SearchOptions struct {
 	GeneralOptions    *GeneralOptions    // standard general search options (filters, terms, etc)
 	LocaleOptions     *LocaleOptions     // Results will be localized in the region format and language if supported.
 	LocationOptions   *LocationOptions   // Use a location term and potentially coordinates to define the location
 	CoordinateOptions *CoordinateOptions // Use coordinate options to define the location.
-	BoundOptions      *BoundOptions      // Use bound options (an area) to define the location.
 }
 
 // Generate a map that contains the querystring parameters for
@@ -32,9 +31,6 @@ func (o *SearchOptions) getParameters() (params map[string]string, err error) {
 		locOptionsCnt++
 	}
 	if o.CoordinateOptions != nil {
-		locOptionsCnt++
-	}
-	if o.BoundOptions != nil {
 		locOptionsCnt++
 	}
 
